@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 const Display = ({ counter }) => {
@@ -16,7 +14,7 @@ const Button = ({onClick, text}) => {
 }
 
 function App() {
-    const [counter, setCounter] = useState(0)
+    const [counter, setCounter] = useState(0) // assign couter = 0, and assign setCounter = trigger function to change counter value
     console.log("rerender with couter value")
 
     const increaseByOne = () => {
