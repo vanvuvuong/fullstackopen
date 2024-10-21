@@ -15,20 +15,42 @@ const Result = ({ name, count }) => {
     </>
 }
 
-function updateCount(count, func) {
-    console.log(count);
+function updateCount(count, total, countFunc, countTotal) {
     let newCount = count
+    let newTotal = total
     newCount += 1
-    func(newCount)
+    newTotal += 1
+    countFunc(newCount)
+    countTotal(newTotal)
 }
+
 
 function App() {
     const [goodCount, setGoodCount] = useState(0)
     const [neutralCount, setNeutralCount] = useState(0)
     const [badCount, setBadCount] = useState(0)
-    const goodAction = () => { updateCount(goodCount, setGoodCount) }
-    const neutralAction = () => { updateCount(neutralCount, setNeutralCount) }
-    const badAction = () => { updateCount(badCount, setBadCount) }
+    const [totalCount, setTotalCount] = useState(0)
+    const [avgCount, setAvgCount] = useState(0)
+    const goodAction = () => {
+        updateCount(goodCount, totalCount, setGoodCount, setTotalCount)
+        avgAction(goodCount, badCount, totalCount)
+    }
+    const neutralAction = () => {
+        updateCount(neutralCount, totalCount, setNeutralCount, setTotalCount)
+        avgAction(goodCount, badCount, totalCount)
+    }
+    const badAction = () => {
+        updateCount(badCount, totalCount, setBadCount, setTotalCount)
+        avgAction(goodCount, badCount, totalCount)
+    }
+    const avgAction = (goodCount, badCount, totalCount) => {
+        let newAvgCount = avgCount
+        console.log("good", goodCount);
+        console.log("bad", badCount);
+        console.log("total", totalCount);
+        newAvgCount = (goodCount - badCount) / totalCount
+        setAvgCount(newAvgCount)
+    }
     return (<>
         <h1>Give feedback</h1>
         <Button onClick={goodAction} name="Good" />
@@ -38,6 +60,8 @@ function App() {
         <Result name="Good" count={goodCount} />
         <Result name="Neutral" count={neutralCount} />
         <Result name="Bad" count={badCount} />
+        <Result name="Total" count={totalCount} />
+        <Result name="Avg" count={avgCount} />
     </>)
 }
 
