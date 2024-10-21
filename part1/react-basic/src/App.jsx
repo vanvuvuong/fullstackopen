@@ -1,43 +1,58 @@
 import { useState } from 'react'
 import './App.css'
 
-const Display = ({ counter }) => {
-    return <>
-        <div>{counter}</div>
-    </>
-}
-
-const Button = ({onClick, text}) => {
+const Button = ({ onClick, text }) => {
     return <>
         <button onClick={onClick}> {text} </button>
     </>
 }
 
-function App() {
-    const [counter, setCounter] = useState(0) // assign couter = 0, and assign setCounter = trigger function to change counter value
-    console.log("rerender with couter value")
+const History = ({allClicks}) => {
+    if (allClicks.length === 0) {
+        return (
+            <div>
+                The app is used by pressing the buttons
+            </div>
+        )
+    }
+    return (
+        <div>
+            Button press history: {allClicks.join(', ')}
+        </div>
+    )
+}
 
-    const increaseByOne = () => {
-        console.log("increase, value before", counter)
-        setCounter(counter + 1)
+const App = () => {
+    const [left, setLeft] = useState(0)
+    const [right, setRight] = useState(0)
+    const [allClicks, setAll] = useState([])
+    const [total, setTotal] = useState(0)
+    console.log("rerender with counter value")
+
+    const handleLeftClick = () => {
+        console.log("increase, value before", left)
+        setAll(allClicks.concat("L"))
+        let newLeft = left + 1
+        setTotal(newLeft + right)
+        setLeft(newLeft)
     }
 
-    const decreaseByOne = () => {
-        console.log("decrease, value before", counter)
-        setCounter(counter - 1)
-    }
-
-    const setToZero = () => {
-        console.log("reset to 0, value before", counter)
-        setCounter(0)
+    const handleRightClick = () => {
+        setAll(allClicks.concat("R"))
+        console.log("increase, value before", right)
+        let newRight = right + 1
+        setTotal(newRight + left)
+        setRight(newRight)
     }
 
     return (<>
         <div>
-            <Display counter={counter} />
-            <Button onClick={increaseByOne} text="Increase"/>
-            <Button onClick={decreaseByOne} text="Decreae"/>
-            <Button onClick={setToZero} text="Zero"/>
+            {left}
+            <Button onClick={handleLeftClick} text="Left" />
+            <Button onClick={handleRightClick} text="Right" />
+            {right}
+            <History allClicks={allClicks}/>
+            <p>Total: {total}</p>
         </div>
     </>)
 }
