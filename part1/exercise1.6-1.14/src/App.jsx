@@ -12,11 +12,45 @@ const Button = ({ onClick, name }) => {
 };
 
 const Result = ({ name, count }) => {
+    if (name == "Avg") {
+        return (
+            <>
+                <ul>
+                    {name}: {count}%
+                </ul>
+            </>
+        );
+    }
     return (
         <>
             <ul>
                 {name}: {count}
             </ul>
+        </>
+    );
+};
+
+const Statistics = ({ statistics }) => {
+    if (statistics[statistics.length - 1].count == 0) {
+        return (
+            <>
+                <p>No feedback given</p>
+            </>
+        );
+    }
+    const renderer = [];
+    statistics.forEach((element) => {
+        renderer.push(<Result name={element.name} count={element.count} />);
+    });
+    console.log(renderer);
+
+    return (
+        <>
+            {renderer[0]}
+            {renderer[1]}
+            {renderer[2]}
+            {renderer[3]}
+            {renderer[4]}
         </>
     );
 };
@@ -47,12 +81,22 @@ function App() {
     };
     const avgAction = (goodCount, badCount, totalCount) => {
         let newAvgCount = avgCount;
-        console.log("good", goodCount);
-        console.log("bad", badCount);
-        console.log("total", totalCount);
-        newAvgCount = (goodCount - badCount) / totalCount;
+        newAvgCount = ((goodCount - badCount) / totalCount) * 100;
         setAvgCount(newAvgCount);
     };
+    let statistics = [
+        {
+            name: "Good",
+            count: goodCount,
+        },
+        {
+            name: "Bad",
+            count: badCount,
+        },
+        { name: "Neutral", count: neutralCount },
+        { name: "Avg", count: avgCount },
+        { name: "Total", count: totalCount },
+    ];
     return (
         <>
             <h1>Give feedback</h1>
@@ -60,11 +104,12 @@ function App() {
             <Button onClick={neutralAction} name="Neutral" />
             <Button onClick={badAction} name="Bad" />
             <h1>Statistics</h1>
-            <Result name="Good" count={goodCount} />
+            <Statistics statistics={statistics} />
+            {/* <Result name="Good" count={goodCount} />
             <Result name="Neutral" count={neutralCount} />
             <Result name="Bad" count={badCount} />
             <Result name="Total" count={totalCount} />
-            <Result name="Avg" count={avgCount} />
+            <Result name="Avg" count={avgCount} /> */}
         </>
     );
 }
