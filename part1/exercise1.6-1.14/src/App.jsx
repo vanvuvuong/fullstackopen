@@ -11,7 +11,7 @@ const Button = ({ onClick, name }) => {
     );
 };
 
-const Result = ({ name, count }) => {
+const StatisticLine = ({ name, count }) => {
     if (name == "Avg") {
         return (
             <>
@@ -40,10 +40,8 @@ const Statistics = ({ statistics }) => {
     }
     const renderer = [];
     statistics.forEach((element) => {
-        renderer.push(<Result name={element.name} count={element.count} />);
+        renderer.push(<StatisticLine name={element.name} count={element.count} />);
     });
-    console.log(renderer);
-
     return (
         <>
             {renderer[0]}
