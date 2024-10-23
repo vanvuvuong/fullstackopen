@@ -14,19 +14,15 @@ const Button = ({ onClick, name }) => {
 const StatisticLine = ({ name, count }) => {
     if (name == "Avg") {
         return (
-            <>
-                <ul>
-                    {name}: {count}%
-                </ul>
-            </>
+            <tr>
+                <td>{name}:</td> <td>{count}%</td>
+            </tr>
         );
     }
     return (
-        <>
-            <ul>
-                {name}: {count}
-            </ul>
-        </>
+        <tr>
+            <td>{name}:</td> <td>{count}</td>
+        </tr>
     );
 };
 
@@ -40,7 +36,9 @@ const Statistics = ({ statistics }) => {
     }
     const renderer = [];
     statistics.forEach((element) => {
-        renderer.push(<StatisticLine name={element.name} count={element.count} />);
+        renderer.push(
+            <StatisticLine name={element.name} count={element.count} />
+        );
     });
     return (
         <>
@@ -68,7 +66,9 @@ function App() {
     };
     const neutralAction = () => {
         let newNeutralCount = neutralCount;
+        let newTotalCount = totalCount;
         setNeutralCount(newNeutralCount + 1);
+        setTotalCount(newTotalCount + 1);
     };
     const badAction = () => {
         let newBadCount = badCount;
@@ -87,11 +87,11 @@ function App() {
             name: "Good",
             count: goodCount,
         },
+        { name: "Neutral", count: neutralCount },
         {
             name: "Bad",
             count: badCount,
         },
-        { name: "Neutral", count: neutralCount },
         { name: "Avg", count: avgCount },
         { name: "Total", count: totalCount },
     ];
