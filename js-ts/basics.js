@@ -6,6 +6,7 @@ console.log(x, y);
 
 // array
 const t = [1, -1, 3]; // object & array are still mutable even declare by const
+// array method
 t.push(5, 5); // add new number to arrays
 t.pop(); // get the last element & remove it from the array
 const t2 = t.concat(5); // creates new array based on t & add 5 as the last element
@@ -13,6 +14,8 @@ const m1 = t.map((value) => value * 2); // [2, 4, 6]
 t.indexOf(1); // 0
 t.slice(1, 2); // [-1]
 t.splice(-1); // [3]
+t.find(1);
+t.filter(1);
 
 // loop
 for (let i = 0; i < t.length; i++) {
