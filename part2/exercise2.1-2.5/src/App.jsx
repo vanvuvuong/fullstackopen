@@ -1,6 +1,7 @@
 import { useState } from "react";
 import viteLogo from "/vite.svg";
 import Course from "./components/Course";
+import Header from "./components/Header";
 
 const App = () => {
     const course = {
@@ -24,7 +25,12 @@ const App = () => {
             },
         ],
     };
-    return <Course key={course.id} course={course} />;
+    return (
+        <>
+            <Header name={course.name}></Header>
+            <Course key={course.id} course={course} />
+        </>
+    );
 };
 
 export default App;
