@@ -1,18 +1,21 @@
-const Course = ({ course }) => {
-    var sum = 0;
-    course.parts.forEach((element) => {
-        sum += element.exercise;
-    });
-    let courseDetail = course.parts.map((part) => (
-        <p key={part.id}>
-            {part.name} - {part.exercise} exercises
-        </p>
-    ));
+import Content from "./Content";
+import Header from "./Header";
 
+const Course = ({ key, name, parts }) => {
+    const total = parts.reduce((s, p) => {
+        if (s.exercises == undefined && p.exercises == undefined) {
+            return s + p;
+        } else if (s.exercises == undefined && p.exercises != undefined) {
+            return s + p.exercises;
+        } else {
+            return s.exercises + p.exercises;
+        }
+    });
     return (
         <>
-            <div>{courseDetail}</div>
-            <div>Total of exercises: {sum}</div>
+            <Header name={name}></Header>
+            <Content key={key} parts={parts}/>
+            <div>Total of exercises: {total}</div>
         </>
     );
 };

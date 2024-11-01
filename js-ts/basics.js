@@ -50,6 +50,12 @@ object1["secret number"] = 12341;
 
 // function
 // arrow function
+const total = function (p1, p2) {
+    console.log(p1);
+    console.log(p2);
+    return p1 + p2;
+};
+//equal to
 const sum = (p1, p2) => {
     console.log(p1);
     console.log(p2);
@@ -59,7 +65,8 @@ const square = (p) => {
     console.log(p);
     return p * p;
 };
-const square2 = (p) => p * p; // even shorter
+// equal to
+const square2 = (p) => p * p;
 
 function product(a, b) {
     return a * b;
